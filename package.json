@@ -1,36 +1,38 @@
 {
-  "name": "carver-labenu-system17",
-  "version": "1.0.0",
-  "description": "Você estuda na Labenu_ há tanto tempo que já parecem anos, não é? Então, hoje, vamos pedir para criar um sistema que represente o básico da nossa organização.",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/future4code/Carver-labenu-system17.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/future4code/Carver-labenu-system17/issues"
-  },
-  "homepage": "https://github.com/future4code/Carver-labenu-system17#readme",
-  "dependencies": {
-    "cors": "^2.8.5",
-    "dotenv": "^16.0.0",
-    "express": "^4.17.2",
-    "knex": "^1.0.3",
-    "mysql": "^2.18.1",
-    "uuid": "^8.3.2"
-  },
-  "devDependencies": {
-    "@types/uuid": "^8.3.4",
-    "@types/cors": "^2.8.12",
-    "@types/dotenv": "^8.2.0",
-    "@types/knex": "^0.16.1",
-    "@types/mysql": "^2.15.21",
-    "typescript": "^4.5.5"
-  }
+    "name": "carver-labenu-system17",
+    "version": "1.0.0",
+    "description": "Você estuda na Labenu_ há tanto tempo que já parecem anos, não é? Então, hoje, vamos pedir para criar um sistema que represente o básico da nossa organização.",
+    "main": "index.js",
+    "scripts": {
+        "dev": "ts-node-dev ./src/index.ts",
+        "start": "tsc && node ./build/index.js",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/future4code/Carver-labenu-system17.git"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/future4code/Carver-labenu-system17/issues"
+    },
+    "homepage": "https://github.com/future4code/Carver-labenu-system17#readme",
+    "dependencies": {
+        "cors": "^2.8.5",
+        "dotenv": "^16.0.0",
+        "express": "^4.17.2",
+        "knex": "^1.0.3",
+        "mysql": "^2.18.1",
+        "uuid": "^8.3.2"
+    },
+    "devDependencies": {
+        "@types/uuid": "^8.3.4",
+        "@types/cors": "^2.8.12",
+        "@types/dotenv": "^8.2.0",
+        "@types/knex": "^0.16.1",
+        "@types/mysql": "^2.15.21",
+        "typescript": "^4.5.5"
+    }
 }
