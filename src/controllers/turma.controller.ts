@@ -1,4 +1,4 @@
-import Turma from "../classes/Turma";
+import Turma from "../classes/Class";
 import { v4 as uuidv4 } from "uuid";
 import { Request, Response } from "express";
 import { connection } from "../connection";
