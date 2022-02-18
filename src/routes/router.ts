@@ -1,9 +1,9 @@
 import express from "express";
-import { postTurma } from "../controllers/turma.controller";
+import { postClass } from "../controllers/class.controller";
 
 const router = express.Router();
 
 //Turma
-router.post("/turma", postTurma);
+router.post("/turma", postClass);
 
 export default router;

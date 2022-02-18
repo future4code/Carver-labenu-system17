@@ -1,24 +1,20 @@
 // Fazer enum do modulo
-// Fazer classe de estudantes
-export default class Turma {
-    private _id: string;
-    private _nome: string;
-    private _docentes: string[];
-    private _estudantes: any[];
-    private _modulo: number;
 
-    constructor(
-        id: string,
-        nome: string,
-        docentes: string[],
-        estudantes: any,
-        modulo: number
-    ) {
-        this._id = id;
-        this._nome = nome;
-        this._docentes = docentes;
-        this._estudantes = estudantes;
-        this._modulo = modulo;
+import Professor from "./Professor";
+import Student from "./Student";
+
+// Fazer classe de estudantes
+export default class Class {
+    private id: string;
+    private name: string;
+    //private professors: Professor[];
+    // private students: Student[];
+    private module: number;
+
+    constructor(id: string, name: string, module: number) {
+        this.id = id;
+        this.name = name;
+        this.module = module;
     }
 
     // Fazer getters e setters

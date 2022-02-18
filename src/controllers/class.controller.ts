@@ -1,11 +1,11 @@
-import Turma from "../classes/Class";
+import Class from "../classes/Class";
 import { v4 as uuidv4 } from "uuid";
 import { Request, Response } from "express";
 import { connection } from "../connection";
 
 const tabela = "Turma";
 
-export const postTurma = async (
+export const postClass = async (
     request: Request,
     response: Response
 ): Promise<void> => {
@@ -20,13 +20,7 @@ export const postTurma = async (
 
         const id: string = uuidv4();
 
-        const turma: Turma = new Turma(
-            id,
-            nome,
-            ["Gui Carvalho", "Amanda"],
-            ["Marcelo Maia", "Leonardo Oliveira"],
-            0
-        );
+        const turma: Class = new Class(id, nome, 0);
 
         await connection(tabela).insert(turma);
 

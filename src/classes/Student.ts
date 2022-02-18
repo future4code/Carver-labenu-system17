@@ -1,6 +1,6 @@
 import Person from "./Person";
-
-export default class Professor extends Person {
+// Fazer classe de estudantes
+export default class Student extends Person {
     constructor(
         id: string,
         name: string,
