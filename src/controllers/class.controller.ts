@@ -1,9 +1,7 @@
-import Class from "../classes/Class";
+import Class from "../models/Class";
 import { v4 as uuidv4 } from "uuid";
 import { Request, Response } from "express";
-import { connection } from "../connection";
-
-const tabela = "Turma";
+import ClassService from "../services/Class.service";
 
 export const postClass = async (
     request: Request,
@@ -11,23 +9,31 @@ export const postClass = async (
 ): Promise<void> => {
     let erroCode = 400;
     try {
-        const { nome } = request.body;
-        if (!nome) {
-            throw new Error("nome não inserido!");
+        const { name } = request.body;
+        if (!name) {
+            throw new Error("name field is missing!");
         }
-        // Fazer consulta dos docentes e validar
-        // Fazer consulta dos estudantes e validar
 
         const id: string = uuidv4();
 
-        const turma: Class = new Class(id, nome, 0);
+        const class_labenu: Class = new Class(id, name, 0);
+        await ClassService.createClass(class_labenu);
 
-        await connection(tabela).insert(turma);
-
-        response.status(200).json(turma);
+        response.status(200).json({ message: "Class created sucessfully!" });
     } catch (error: any) {
         response.status(erroCode).json({ error: error.message });
     }
 };
 
-/* export const getTurmasAtivas = async (): Promise<void> => {}; */
+export const getActivesClass = async (
+    _: Request,
+    response: Response
+): Promise<void> => {
+    let erroCode = 500;
+    try {
+        const activeClass: Class[] = await ClassService.getActiveClass();
+        response.status(200).json(activeClass);
+    } catch (error: any) {
+        response.status(erroCode).json({ error: error.message });
+    }
+};

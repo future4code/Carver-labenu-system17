@@ -1,22 +1,26 @@
-import { Request, Response } from "express";
-import Professor from "../classes/Professor";
-import { connection } from "../connection";
+/* import { Request, Response } from "express";
+import Professor from "../models/Professor";
+import { connection } from "../connection/ConnectionBase";
 import { v4 as uuidv4 } from "uuid";
+import { TableName } from "../constants/tables";
 
-export const postProfessor = async (req: Request, res: Response): Promise<void> => {
-    let errorCode = 500
+export const postProfessor = async (
+    req: Request,
+    res: Response
+): Promise<void> => {
+    let errorCode = 500;
     try {
-        const { classId, name, email, birthDate } = req.body
-        const id: string = uuidv4()
+        const { classId, name, email, birthDate } = req.body;
+        const id: string = uuidv4();
 
         if (!classId || !name || !email || !birthDate) {
-            throw new Error("please fill the fields!")
+            throw new Error("please fill the fields!");
         }
 
         const checkClassId = await connection()
             .select("id")
-            .from("labesystem_class")
-            .where("id", classId)
+            .from(TableName.labesystem_class)
+            .where("id", classId);
 
         const professor: Professor = new Professor(
             id,
@@ -24,28 +28,35 @@ export const postProfessor = async (req: Request, res: Response): Promise<void> 
             email,
             birthDate,
             checkClassId[0].id
-        )
+        );
 
-        await connection("labesystem_professor")
-            .insert(professor)
+        await connection(TableName.labesystem_professor).insert(professor);
 
-        res.status(201).end()
+        res.status(201).end();
     } catch (error: any) {
-        res.status(errorCode).send({ error: error.message })
+        res.status(errorCode).send({ error: error.message });
     }
-}
+};
 
-export const getProfessors = async (req: Request, res: Response): Promise<any> => {
-    let errorCode = 500
+export const getProfessors = async (
+    req: Request,
+    res: Response
+): Promise<any> => {
+    let errorCode = 500;
     try {
-        const result = await connection("labesystem_professor")
-            .select("*")
+        const result = await connection(TableName.labesystem_professor).select(
+            "*"
+        );
 
-        res.status(200).send(result)
+        res.status(200).send(result);
     } catch (error: any) {
-        res.status(errorCode).send({ error: error.message })
+        res.status(errorCode).send({ error: error.message });
     }
-}
+
+};
+ */
+
+
 
 export const changeProfessorClass = async (req: Request, res: Response): Promise<any> => {
     let errorCode = 500
@@ -83,3 +94,4 @@ export const changeProfessorClass = async (req: Request, res: Response): Promise
         res.status(errorCode).send({ error: error.message })
     }
 }
+
