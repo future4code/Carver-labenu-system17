@@ -18,7 +18,9 @@ export default abstract class Person {
         this.class_id = class_id;
     }
 
-    setClassId(id:string){
-        
+    public setClassId(classId:string, newClassId: string){
+        if(classId === this.class_id){
+            this.class_id = newClassId
+        }
     }
 }
