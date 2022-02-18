@@ -17,10 +17,4 @@ export default abstract class Person {
         this.birth_date = birth_date;
         this.class_id = class_id;
     }
-
-    public setClassId(classId:string, newClassId: string){
-        if(classId === this.class_id){
-            this.class_id = newClassId
-        }
-    }
 }

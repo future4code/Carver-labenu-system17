@@ -1,9 +1,9 @@
 // Fazer enum do modulo
 
+import { TableName } from "../constants/tables";
 import Professor from "./Professor";
 import Student from "./Student";
 
-// Fazer classe de estudantes
 export default class Class {
     private id: string;
     private name: string;
@@ -17,6 +17,13 @@ export default class Class {
         this.module = module;
     }
 
-    // Fazer getters e setters
-    //Outros métodos da classe turma
+    public getName(): string {
+        return this.name;
+    }
+    public getId(): string {
+        return this.id;
+    }
+    public getModule(): number {
+        return this.module;
+    }
 }
