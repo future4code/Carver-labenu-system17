@@ -22,8 +22,6 @@ export const postProfessor = async (
             .from(TableName.labesystem_class)
             .where("id", classId);
 
-        // if(!checkClassId){ throw new Error("class id not exist!")}
-
         const professor: Professor = new Professor(
             id,
             name,
@@ -54,5 +52,46 @@ export const getProfessors = async (
     } catch (error: any) {
         res.status(errorCode).send({ error: error.message });
     }
+
 };
  */
+
+
+
+export const changeProfessorClass = async (req: Request, res: Response): Promise<any> => {
+    let errorCode = 500
+    try {
+        const professorId = req.params.id as string
+        const newClassId = req.body.newClassId as string
+        const checkProfessorId = await connection()
+            .select("id")
+            .from("labesystem_professor")
+            .where("id", professorId)
+
+        const result = await connection("labesystem_professor")
+            .select("*")
+
+        result.map( async (res: any): Promise<void> => {
+            if (checkProfessorId[0].id === res.id) {
+                console.log("aaa")
+                await connection("labesystem_professor")
+                .where("id", checkProfessorId)
+                .update({class_id: newClassId})
+            }
+        })
+
+        result.map( async (res: any): Promise<void> => {
+            if (checkProfessorId[0].id === res.id) {
+                console.log("aaa")
+                await connection("labesystem_professor")
+                .where("id", checkProfessorId)
+                .update({class_id: newClassId})
+            }
+        })
+
+        res.status(200).end()
+    } catch (error: any) {
+        res.status(errorCode).send({ error: error.message })
+    }
+}
+
