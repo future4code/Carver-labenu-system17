@@ -1,8 +1,9 @@
-/* import { Request, Response } from "express";
+import { Request, Response } from "express";
 import Professor from "../models/Professor";
-import { connection } from "../connection/ConnectionBase";
 import { v4 as uuidv4 } from "uuid";
 import { TableName } from "../constants/tables";
+import connection from "../data/connection";
+import ProfessorService from "../services/Professor.service";
 
 export const postProfessor = async (
     req: Request,
@@ -29,10 +30,9 @@ export const postProfessor = async (
             birthDate,
             checkClassId[0].id
         );
+        await ProfessorService.createProfessor(professor)
 
-        await connection(TableName.labesystem_professor).insert(professor);
-
-        res.status(201).end();
+        res.status(201).json({ message: "Professor created sucessfully!" });
     } catch (error: any) {
         res.status(errorCode).send({ error: error.message });
     }
@@ -44,19 +44,13 @@ export const getProfessors = async (
 ): Promise<any> => {
     let errorCode = 500;
     try {
-        const result = await connection(TableName.labesystem_professor).select(
-            "*"
-        );
-
+        const result = await ProfessorService.getProfessors()
         res.status(200).send(result);
     } catch (error: any) {
         res.status(errorCode).send({ error: error.message });
     }
 
 };
- */
-
-
 
 export const changeProfessorClass = async (req: Request, res: Response): Promise<any> => {
     let errorCode = 500
@@ -94,4 +88,3 @@ export const changeProfessorClass = async (req: Request, res: Response): Promise
         res.status(errorCode).send({ error: error.message })
     }
 }
-
