@@ -61,6 +61,11 @@ export const getStudentsByName = async (
         const studentsByName: Student[] =
             await StudentService.indexStudentByName(name);
 
+        if (studentsByName.length === 0) {
+            erroCode = 404;
+            throw new Error("students not found");
+        }
+
         response.status(200).json(studentsByName);
     } catch (error: any) {
         response.status(erroCode).json({ error: error.message });

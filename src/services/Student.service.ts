@@ -19,7 +19,9 @@ export default class StudentService extends ConnectionBase {
         }
     }
 
-    public static async indexStudentByName(name: string): Promise<Student[]> {
+    public static async indexStudentByName(
+        name: string
+    ): Promise<Student[] | []> {
         try {
             let result = await ConnectionBase.connection.raw(
                 `SELECT * FROM ${TableName.labesystem_student} WHERE name=${name} ORDER BY birth_date`
