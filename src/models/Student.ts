@@ -5,7 +5,7 @@ export default class Student extends Person {
         id: string,
         name: string,
         email: string,
-        birth_date: Date,
+        birth_date: string,
         class_id: string
     ) {
         super(id, name, email, birth_date, class_id);
