@@ -1,4 +1,5 @@
 import ConnectionBase from "../connection/ConnectionBase";
+import { ModuleValues } from "../constants/module";
 import { TableName } from "../constants/tables";
 import Class from "../models/Class";
 
@@ -17,7 +18,7 @@ export default class ClassService extends ConnectionBase {
         }
     }
 
-    public static async getActiveClass(): Promise<Class[]> {
+    public static async getActiveClass(): Promise<Class[] | []> {
         try {
             let result = await ConnectionBase.connection.raw(
                 `SELECT * FROM ${TableName.labesystem_class} WHERE module IN (1, 2, 3, 4, 5, 6) ORDER BY module`
@@ -30,6 +31,19 @@ export default class ClassService extends ConnectionBase {
             return [];
         }
     }
+  
+    public static async updateClassModule(
+        module: ModuleValues
+    ): Promise<void | {}> {
+        try {
+            await ConnectionBase.connection.raw(
+                `UPDATE ${TableName.labesystem_class} SET module=${module}`
+            );
+        } catch (error: any) {
+            return { error: error.message };
+        }
+    }
+
     public static async getAllClasses(): Promise<Class[] | null>{
         try {
             const result = await ConnectionBase.connection(TableName.labesystem_class).select(
