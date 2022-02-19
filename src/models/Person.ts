@@ -3,6 +3,7 @@ export default abstract class Person {
     protected name: string;
     protected email: string;
     protected birth_date: string;
+
     protected class_id: string;
     constructor(
         id: string,
