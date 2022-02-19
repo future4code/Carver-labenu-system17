@@ -5,10 +5,14 @@ import {
     putClassModule,
 } from "../controllers/class.controller";
 import {
+    changeProfessorClass,
+    getProfessors,
+    postProfessor,
+} from "../controllers/professor.controller";
+import {
     getStudentsByName,
     postStudent,
 } from "../controllers/student.controller";
-// import { postProfessor } from "../controllers/professor.controller";
 
 const router = express.Router();
 
@@ -22,6 +26,8 @@ router.post("/students", postStudent);
 router.get("/students/:name", getStudentsByName);
 
 //Professor
-// router.post("/professor", postProfessor);
+router.post("/professors", postProfessor);
+router.get("/professors", getProfessors);
+router.put("/professors/:id", changeProfessorClass);
 
 export default router;
