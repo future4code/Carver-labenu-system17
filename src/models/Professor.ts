@@ -13,8 +13,6 @@ export default class Professor extends Person {
     ) {
         super(id, name, email, birth_date, class_id);
     }
-    // Fazer getters e setters
-    //Outros métodos da classe turma
     public getId(): string{
         return this.id
     }

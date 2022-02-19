@@ -62,28 +62,9 @@ export const changeProfessorClass = async (req: Request, res: Response): Promise
             .from("labesystem_professor")
             .where("id", professorId)
 
-        const result = await connection("labesystem_professor")
-            .select("*")
+        await ProfessorService.changeProfessorClass(checkProfessorId[0].id, newClassId)
 
-        result.map( async (res: any): Promise<void> => {
-            if (checkProfessorId[0].id === res.id) {
-                console.log("aaa")
-                await connection("labesystem_professor")
-                .where("id", checkProfessorId)
-                .update({class_id: newClassId})
-            }
-        })
-
-        result.map( async (res: any): Promise<void> => {
-            if (checkProfessorId[0].id === res.id) {
-                console.log("aaa")
-                await connection("labesystem_professor")
-                .where("id", checkProfessorId)
-                .update({class_id: newClassId})
-            }
-        })
-
-        res.status(200).end()
+        res.status(200).json({ message: "Professor changed class id sucessfully!" });
     } catch (error: any) {
         res.status(errorCode).send({ error: error.message })
     }
