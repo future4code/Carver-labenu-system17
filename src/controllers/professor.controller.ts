@@ -1,9 +1,8 @@
 import { Request, Response } from "express";
 import Professor from "../models/Professor";
 import { v4 as uuidv4 } from "uuid";
-import { TableName } from "../constants/tables";
-import connection from "../data/connection";
 import ProfessorService from "../services/Professor.service";
+import ClassService from "../services/Class.service";
 
 export const postProfessor = async (
     req: Request,
@@ -18,17 +17,14 @@ export const postProfessor = async (
             throw new Error("please fill the fields!");
         }
 
-        const checkClassId = await connection()
-            .select("id")
-            .from(TableName.labesystem_class)
-            .where("id", classId);
+        const checkClassId = await ProfessorService.checkProfessorId(classId)
 
         const professor: Professor = new Professor(
             id,
             name,
             email,
             birthDate,
-            checkClassId[0].id
+            checkClassId
         );
         await ProfessorService.createProfessor(professor)
 
@@ -49,7 +45,6 @@ export const getProfessors = async (
     } catch (error: any) {
         res.status(errorCode).send({ error: error.message });
     }
-
 };
 
 export const changeProfessorClass = async (req: Request, res: Response): Promise<any> => {
@@ -57,12 +52,15 @@ export const changeProfessorClass = async (req: Request, res: Response): Promise
     try {
         const professorId = req.params.id as string
         const newClassId = req.body.newClassId as string
-        const checkProfessorId = await connection()
-            .select("id")
-            .from("labesystem_professor")
-            .where("id", professorId)
 
-        await ProfessorService.changeProfessorClass(checkProfessorId[0].id, newClassId)
+        const checkProfessorId = await ProfessorService.checkProfessorId(professorId)
+        const checkClassId = await ClassService.checkClassId(newClassId)
+        
+        if(professorId === ''){throw new Error("Id params is missing!")}
+        if(!newClassId){throw new Error("classID is missing!")}
+        if(checkClassId === null){throw new Error("class ID not found!")}
+
+        await ProfessorService.changeProfessorClass(checkProfessorId, newClassId)
 
         res.status(200).json({ message: "Professor changed class id sucessfully!" });
     } catch (error: any) {
