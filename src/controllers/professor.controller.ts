@@ -1,8 +1,8 @@
-/* import { Request, Response } from "express";
+import { Request, Response } from "express";
 import Professor from "../models/Professor";
-import { connection } from "../connection/ConnectionBase";
 import { v4 as uuidv4 } from "uuid";
-import { TableName } from "../constants/tables";
+import ProfessorService from "../services/Professor.service";
+import ClassService from "../services/Class.service";
 
 export const postProfessor = async (
     req: Request,
@@ -17,22 +17,18 @@ export const postProfessor = async (
             throw new Error("please fill the fields!");
         }
 
-        const checkClassId = await connection()
-            .select("id")
-            .from(TableName.labesystem_class)
-            .where("id", classId);
+        const checkClassId = await ProfessorService.checkProfessorId(classId)
 
         const professor: Professor = new Professor(
             id,
             name,
             email,
             birthDate,
-            checkClassId[0].id
+            checkClassId
         );
+        await ProfessorService.createProfessor(professor)
 
-        await connection(TableName.labesystem_professor).insert(professor);
-
-        res.status(201).end();
+        res.status(201).json({ message: "Professor created sucessfully!" });
     } catch (error: any) {
         res.status(errorCode).send({ error: error.message });
     }
@@ -44,54 +40,30 @@ export const getProfessors = async (
 ): Promise<any> => {
     let errorCode = 500;
     try {
-        const result = await connection(TableName.labesystem_professor).select(
-            "*"
-        );
-
+        const result = await ProfessorService.getProfessors()
         res.status(200).send(result);
     } catch (error: any) {
         res.status(errorCode).send({ error: error.message });
     }
-
 };
- */
-
-
 
 export const changeProfessorClass = async (req: Request, res: Response): Promise<any> => {
     let errorCode = 500
     try {
         const professorId = req.params.id as string
         const newClassId = req.body.newClassId as string
-        const checkProfessorId = await connection()
-            .select("id")
-            .from("labesystem_professor")
-            .where("id", professorId)
 
-        const result = await connection("labesystem_professor")
-            .select("*")
+        const checkProfessorId = await ProfessorService.checkProfessorId(professorId)
+        const checkClassId = await ClassService.checkClassId(newClassId)
+        
+        if(professorId === ''){throw new Error("Id params is missing!")}
+        if(!newClassId){throw new Error("classID is missing!")}
+        if(checkClassId === null){throw new Error("class ID not found!")}
 
-        result.map( async (res: any): Promise<void> => {
-            if (checkProfessorId[0].id === res.id) {
-                console.log("aaa")
-                await connection("labesystem_professor")
-                .where("id", checkProfessorId)
-                .update({class_id: newClassId})
-            }
-        })
+        await ProfessorService.changeProfessorClass(checkProfessorId, newClassId)
 
-        result.map( async (res: any): Promise<void> => {
-            if (checkProfessorId[0].id === res.id) {
-                console.log("aaa")
-                await connection("labesystem_professor")
-                .where("id", checkProfessorId)
-                .update({class_id: newClassId})
-            }
-        })
-
-        res.status(200).end()
+        res.status(200).json({ message: "Professor changed class id sucessfully!" });
     } catch (error: any) {
         res.status(errorCode).send({ error: error.message })
     }
 }
-
