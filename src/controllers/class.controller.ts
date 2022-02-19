@@ -32,6 +32,10 @@ export const getActivesClass = async (
     let erroCode = 500;
     try {
         const activeClass: Class[] = await ClassService.getActiveClass();
+        if (activeClass.length === 0) {
+            erroCode = 404;
+            throw new Error("activeClass not found");
+        }
         response.status(200).json(activeClass);
     } catch (error: any) {
         response.status(erroCode).json({ error: error.message });

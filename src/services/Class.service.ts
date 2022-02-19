@@ -18,7 +18,7 @@ export default class ClassService extends ConnectionBase {
         }
     }
 
-    public static async getActiveClass(): Promise<Class[]> {
+    public static async getActiveClass(): Promise<Class[] | []> {
         try {
             let result = await ConnectionBase.connection.raw(
                 `SELECT * FROM ${TableName.labesystem_class} WHERE module IN (1, 2, 3, 4, 5, 6) ORDER BY module`
