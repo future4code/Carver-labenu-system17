@@ -8,24 +8,24 @@ export default class Professor extends Person {
         id: string,
         name: string,
         email: string,
-        birth_date: Date,
+        birth_date: string,
         class_id: string
     ) {
         super(id, name, email, birth_date, class_id);
     }
-    public getId(): string{
-        return this.id
+    public getId(): string {
+        return this.id;
     }
-    public getName(): string{
-        return this.name
+    public getName(): string {
+        return this.name;
     }
-    public getEmail(): string{
-        return this.email
+    public getEmail(): string {
+        return this.email;
     }
-    public getBirthDate(): Date{
-        return this.birth_date
+    public getBirthDate(): string {
+        return this.birth_date;
     }
-    public getClassId(): string{
-        return this.class_id
+    public getClassId(): string {
+        return this.class_id;
     }
 }
