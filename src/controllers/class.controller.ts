@@ -19,7 +19,7 @@ export const postClass = async (
         const class_labenu: Class = new Class(id, name, 0);
         await ClassService.createClass(class_labenu);
 
-        response.status(200).json({ message: "Class created sucessfully!" });
+        response.status(201).json({ message: "Class created sucessfully!" });
     } catch (error: any) {
         response.status(erroCode).json({ error: error.message });
     }
