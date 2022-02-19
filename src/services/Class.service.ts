@@ -31,7 +31,7 @@ export default class ClassService extends ConnectionBase {
             return [];
         }
     }
-  
+
     public static async updateClassModule(
         module: ModuleValues
     ): Promise<void | {}> {
@@ -44,21 +44,21 @@ export default class ClassService extends ConnectionBase {
         }
     }
 
-    public static async getAllClasses(): Promise<Class[] | null>{
+    public static async getAllClasses(): Promise<Class[] | null> {
         try {
-            const result = await ConnectionBase.connection(TableName.labesystem_class).select(
-                "*"
-            );
-            return result
+            const result = await ConnectionBase.connection(
+                TableName.labesystem_class
+            ).select("*");
+            return result;
         } catch (error: any) {
-            return null
+            return null;
         }
     }
     public static async checkClassId(id: string): Promise<string> {
         const checkClassId = await ConnectionBase.connection()
             .select("id")
             .from(TableName.labesystem_class)
-            .where("id", id)
-        return checkClassId[0].id
+            .where("id", id);
+        return checkClassId[0].id;
     }
 }
