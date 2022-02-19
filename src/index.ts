@@ -2,7 +2,6 @@ import express, { Express } from "express";
 import cors from "cors";
 import { AddressInfo } from "net";
 import router from "./routes/router";
-import { getProfessors, postProfessor } from "./controllers/professor.controller";
 
 const app: Express = express();
 app.use(express.json());
@@ -17,7 +16,3 @@ const server = app.listen(process.env.PORT || 3003, () => {
         console.error(`Failure upon starting server.`);
     }
 });
-
-app.post("/professor", postProfessor)
-
-app.get("/professor", getProfessors)
