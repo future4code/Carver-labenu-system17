@@ -1,5 +1,4 @@
 import Student from "../models/Student";
-import { v4 as uuidv4 } from "uuid";
 import { Request, Response } from "express";
 import StudentService from "../services/Student.service";
 import Person from "../models/Person";
@@ -31,7 +30,7 @@ export const postStudent = async (
             throw new Error("class_id field is missing!");
         }
 
-        const id: string = uuidv4();
+        const id: string = Person.generateId();
 
         const student: Student = new Student(
             id,

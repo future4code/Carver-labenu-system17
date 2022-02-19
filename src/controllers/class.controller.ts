@@ -14,7 +14,7 @@ export const postClass = async (
             throw new Error("name field is missing!");
         }
 
-        const id: string = uuidv4();
+        const id: string = Class.generateId();
 
         const class_labenu: Class = new Class(id, name, 0);
         await ClassService.createClass(class_labenu);

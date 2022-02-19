@@ -1,4 +1,6 @@
-export default abstract class Person {
+import { v4 as uuidv4 } from "uuid";
+
+export default abstract class Person implements IEntity {
     protected id: string;
     protected name: string;
     protected email: string;
@@ -17,6 +19,9 @@ export default abstract class Person {
         this.email = email;
         this.birth_date = birth_date;
         this.class_id = class_id;
+    }
+    generateId(): string {
+        throw new Error("Method not implemented.");
     }
 
     public getId(): string {
@@ -52,5 +57,9 @@ export default abstract class Person {
             return false; // NaN value, Invalid date
         }
         return test_date.toISOString().slice(0, 10) === date;
+    }
+
+    public static generateId(): string {
+        return uuidv4();
     }
 }

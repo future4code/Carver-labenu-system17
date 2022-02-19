@@ -12,7 +12,6 @@ export const postProfessor = async (
     let errorCode = 500;
     try {
         const { classId, name, email, birthDate } = req.body;
-        const id: string = uuidv4();
 
         if (!classId || !name || !email || !birthDate) {
             throw new Error("please fill the fields!");
@@ -26,6 +25,8 @@ export const postProfessor = async (
         }
 
         const checkClassId = await ProfessorService.checkProfessorId(classId);
+
+        const id: string = Person.generateId();
 
         const professor: Professor = new Professor(
             id,
