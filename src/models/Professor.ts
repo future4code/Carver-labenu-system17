@@ -1,9 +1,6 @@
 import Person from "./Person";
 
 export default class Professor extends Person {
-    static getProfessors() {
-        throw new Error("Method not implemented.");
-    }
     constructor(
         id: string,
         name: string,
