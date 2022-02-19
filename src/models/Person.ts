@@ -1,9 +1,9 @@
 export default abstract class Person {
-    private id: string;
-    private name: string;
-    private email: string;
-    private birth_date: string;
-    private class_id: string;
+    protected id: string;
+    protected name: string;
+    protected email: string;
+    protected birth_date: string;
+    protected class_id: string;
     constructor(
         id: string,
         name: string,
