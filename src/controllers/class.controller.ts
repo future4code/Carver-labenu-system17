@@ -37,3 +37,34 @@ export const getActivesClass = async (
         response.status(erroCode).json({ error: error.message });
     }
 };
+
+export const putClassModule = async (
+    request: Request,
+    response: Response
+): Promise<void> => {
+    let erroCode = 400;
+    try {
+        let module = request.body.module;
+
+        if (module === "") {
+            throw new Error("module field have a invalid value!");
+        }
+
+        module = Number(module);
+
+        if (!module || module < 0 || module > 6) {
+            erroCode = 422;
+            throw new Error(
+                "module field is missing or module have a invalid value!"
+            );
+        }
+
+        await ClassService.updateClassModule(module);
+
+        response
+            .status(200)
+            .json({ message: "Module has updated sucessfully!" });
+    } catch (error: any) {
+        response.status(erroCode).json({ error: error.message });
+    }
+};

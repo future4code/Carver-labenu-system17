@@ -1,4 +1,5 @@
 import ConnectionBase from "../connection/ConnectionBase";
+import { ModuleValues } from "../constants/module";
 import { TableName } from "../constants/tables";
 import Class from "../models/Class";
 
@@ -28,6 +29,18 @@ export default class ClassService extends ConnectionBase {
             return classes;
         } catch (error) {
             return [];
+        }
+    }
+
+    public static async updateClassModule(
+        module: ModuleValues
+    ): Promise<void | {}> {
+        try {
+            await ConnectionBase.connection.raw(
+                `UPDATE ${TableName.labesystem_class} SET module=${module}`
+            );
+        } catch (error: any) {
+            return { error: error.message };
         }
     }
 }
