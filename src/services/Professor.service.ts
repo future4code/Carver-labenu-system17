@@ -40,8 +40,8 @@ export default class ProfessorService extends ConnectionBase {
                 TableName.labesystem_professor
             ).select("*");
 
-            result.map(async (professor: Professor): Promise<void> => {
-                if (checkProfessorId === professor.getId()) {
+            result.map(async (professor: any): Promise<void> => {
+                if (checkProfessorId === professor.id) {
                     await ProfessorService.connection.raw(`
                     UPDATE ${TableName.labesystem_professor} SET class_id = "${newClassId}" WHERE id = "${checkProfessorId}";
                     `);
