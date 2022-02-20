@@ -13,3 +13,23 @@ As funcionalidades básicas são:
 → Criar docente;
 → Buscar todas as pessaos docentes;
 → Mudar docente de turma;
+
+### 📋 Documentação via Postman:
+
+### 🛠️ Tecnologias utilizadas:
+
+→ Typescript;
+
+→ Express;
+
+→ MySQL;
+
+→ Knex;
+
+→ Node.js:
+
+→ Dotenv;
+
+→ Cors;
+
+→ Uuid;
