@@ -9,6 +9,7 @@ import {
     getProfessors,
     postProfessor,
 } from "../controllers/professor.controller";
+import { getProfessorBySpeciality } from "../controllers/speciality.controller";
 import {
     getStudentsByName,
     postStudent,
@@ -33,4 +34,7 @@ router.put("/professors/:id", changeProfessorClass);
 
 //get Students and Professors by class id
 router.get("/classPersons", getStudentsAndProfessorsByClass)
+
+//Speciality
+router.get("/speciality", getProfessorBySpeciality)
 export default router;
