@@ -6,16 +6,15 @@ import Class from "../models/Class";
 export default class ClassService extends ConnectionBase {
     public static async createClass(class_labenu: Class): Promise<void | {}> {
         try {
-            
             await ConnectionBase.connection.raw(
-                `INSERT INTO ${TableName.labesystem_class} (id, name, module) VALUES(
+                `INSERT INTO ${
+                    TableName.labesystem_class
+                } (id, name, module) VALUES(
                     ${class_labenu.getId()},
                     ${class_labenu.getName()},
                     ${class_labenu.getModule()}
                 )`
-                
             );
-
         } catch (error: any) {
             return { error: error.message };
         }
@@ -36,11 +35,12 @@ export default class ClassService extends ConnectionBase {
     }
 
     public static async updateClassModule(
-        module: ModuleValues
+        module: ModuleValues,
+        class_id: string
     ): Promise<void | {}> {
         try {
             await ConnectionBase.connection.raw(
-                `UPDATE ${TableName.labesystem_class} SET module=${module}`
+                `UPDATE ${TableName.labesystem_class} SET module=${module} WHERE id=${class_id}`
             );
         } catch (error: any) {
             return { error: error.message };

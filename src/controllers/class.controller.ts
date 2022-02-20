@@ -48,10 +48,14 @@ export const putClassModule = async (
 ): Promise<void> => {
     let erroCode = 400;
     try {
-        let module = request.body.module;
+        let { module, class_id } = request.body;
 
         if (module === "") {
             throw new Error("module field have a invalid value!");
+        }
+
+        if (!class_id || class_id === "") {
+            throw new Error("class_id field have a invalid value!");
         }
 
         module = Number(module);
@@ -63,7 +67,7 @@ export const putClassModule = async (
             );
         }
 
-        await ClassService.updateClassModule(module);
+        await ClassService.updateClassModule(module, class_id);
 
         response
             .status(200)
