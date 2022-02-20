@@ -18,7 +18,7 @@ import { getStudentsAndProfessorsByClass } from "../controllers/student.professo
 const router = express.Router();
 
 //Class
-router.post("/class", postClass);
+router.post("/classes", postClass);
 router.get("/classes/active", getActivesClass);
 router.put("/classes/module", putClassModule);
 

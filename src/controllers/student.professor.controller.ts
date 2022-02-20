@@ -1,7 +1,5 @@
 import { Request, Response } from "express";
-import Person from "../models/Person";
 import StudentProfessorService from "../services/Student.Professor.service";
-
 
 export const getStudentsAndProfessorsByClass = async (req: Request, res: Response): Promise<any | {}> =>{
     let errorCode = 500;
