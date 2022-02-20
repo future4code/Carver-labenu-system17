@@ -20,6 +20,10 @@ As funcionalidades básicas são:
 
 → Mudar docente de turma;
 
+### Arquivo SQL para as tabelas disponivel no projeto:
+
+    → LabenuSystem_SQL.sql;
+
 ### 📋 Documentação via Postman:
 
     https://documenter.getpostman.com/view/7556441/UVkjwxzY
