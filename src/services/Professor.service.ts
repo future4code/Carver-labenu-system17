@@ -7,16 +7,15 @@ export default class ProfessorService extends ConnectionBase {
         professor: Professor
     ): Promise<void | {}> {
         try {
-            const professors: Professor = new Professor(
-                professor.getId(),
-                professor.getName(),
-                professor.getEmail(),
-                professor.getBirthDate(),
-                professor.getClassId()
-            );
             await ConnectionBase.connection(
                 TableName.labesystem_professor
-            ).insert(professors);
+            ).insert({
+                id: professor.getId(),
+                name: professor.getName(),
+                email: professor.getEmail(),
+                birth_date: professor.getBirthDate(),
+                class_id: professor.getClassId(),
+            });
         } catch (error: any) {
             return { error: error.message };
         }

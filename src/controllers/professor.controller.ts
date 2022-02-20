@@ -1,30 +1,42 @@
 import { Request, Response } from "express";
 import Professor from "../models/Professor";
-import { v4 as uuidv4 } from "uuid";
 import ProfessorService from "../services/Professor.service";
 import ClassService from "../services/Class.service";
 import Person from "../models/Person";
 
 export const postProfessor = async (
-    req: Request,
-    res: Response
+    request: Request,
+    response: Response
 ): Promise<void> => {
     let errorCode = 500;
     try {
-        const { classId, name, email, birthDate } = req.body;
+        const { name, email, birth_date, class_id } = request.body;
 
-        if (!classId || !name || !email || !birthDate) {
-            throw new Error("please fill the fields!");
+        if (!name || name === "") {
+            throw new Error("name field is missing!");
         }
-
-        if (!Person.isValidDate(birthDate)) {
+        if (!email || email === "") {
+            throw new Error("email field is missing!");
+        }
+        if (!birth_date || birth_date === "") {
+            throw new Error("birth_date field is missing!");
+        }
+        if (!Person.isValidDate(birth_date)) {
             errorCode = 422;
             throw new Error(
                 "birth_date have a invalid value date for: YYYY-MM-DD!"
             );
         }
+        if (!class_id || class_id === "") {
+            throw new Error("class_id field is missing!");
+        }
 
-        const checkClassId = await ProfessorService.checkProfessorId(classId);
+        const checkClassId = await ClassService.checkClassId(class_id);
+
+        if (!checkClassId) {
+            errorCode = 404;
+            throw new Error("class does not exist!");
+        }
 
         const id: string = Person.generateId();
 
@@ -32,19 +44,23 @@ export const postProfessor = async (
             id,
             name,
             email,
-            birthDate,
+            birth_date,
             checkClassId
         );
+
+        console.log(professor);
         await ProfessorService.createProfessor(professor);
 
-        res.status(201).json({ message: "Professor created sucessfully!" });
+        response
+            .status(201)
+            .json({ message: "Professor created sucessfully!" });
     } catch (error: any) {
-        res.status(errorCode).send({ error: error.message });
+        response.status(errorCode).send({ error: error.message });
     }
 };
 
 export const getProfessors = async (
-    req: Request,
+    _: Request,
     res: Response
 ): Promise<any> => {
     let errorCode = 500;

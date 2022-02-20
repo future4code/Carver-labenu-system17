@@ -76,3 +76,20 @@ export const putClassModule = async (
         response.status(erroCode).json({ error: error.message });
     }
 };
+
+export const getAllClass = async (
+    _: Request,
+    response: Response
+): Promise<void> => {
+    let erroCode = 500;
+    try {
+        const classes: Class[] | null = await ClassService.getAllClasses();
+        if (classes === null) {
+            erroCode = 404;
+            throw new Error("classes are empty");
+        }
+        response.status(200).json(classes);
+    } catch (error: any) {
+        response.status(erroCode).json({ error: error.message });
+    }
+};

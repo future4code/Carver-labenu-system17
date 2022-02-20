@@ -1,6 +1,7 @@
 import express from "express";
 import {
     getActivesClass,
+    getAllClass,
     postClass,
     putClassModule,
 } from "../controllers/class.controller";
@@ -29,20 +30,21 @@ const router = express.Router();
 //Class
 router.post("/classes", postClass);
 router.get("/classes/active", getActivesClass);
+router.get("/classes", getAllClass);
 router.put("/classes/module", putClassModule);
 
 //Student
 router.post("/students", postStudent);
 router.get("/students/:name", getStudentsByName);
-router.put("/students/:id", changeStudentClass);
+router.put("/students/class/:id", changeStudentClass);
 
 //Professor
 router.post("/professors", postProfessor);
 router.get("/professors", getProfessors);
-router.put("/professors/:id", changeProfessorClass);
+router.put("/professors/class/:id", changeProfessorClass);
 
 //Student/Professor
-router.get("/classPersons", getStudentsAndProfessorsByClass);
+router.get("/person/class", getStudentsAndProfessorsByClass);
 router.post("/person/particularity", postStudentOrProfessorParticularity);
 
 //Speciality

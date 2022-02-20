@@ -31,6 +31,13 @@ export const postStudent = async (
             throw new Error("class_id field is missing!");
         }
 
+        const checkClassId = await ClassService.checkClassId(class_id);
+
+        if (!checkClassId) {
+            errorCode = 404;
+            throw new Error("class does not exist!");
+        }
+
         const id: string = Person.generateId();
 
         const student: Student = new Student(
@@ -38,7 +45,7 @@ export const postStudent = async (
             name,
             email,
             birth_date,
-            class_id
+            checkClassId
         );
         await StudentService.createStudent(student);
 
@@ -83,17 +90,23 @@ export const changeStudentClass = async (
         const newClassId = req.body.newClassId as string;
 
         const checkStudentId = await StudentService.checkStudentId(studentId);
+
+        if (!checkStudentId) {
+            errorCode = 404;
+            throw new Error("student does not exist!");
+        }
         const checkClassId = await ClassService.checkClassId(newClassId);
+
+        if (!checkClassId) {
+            errorCode = 404;
+            throw new Error("class ID not found!");
+        }
 
         if (studentId === "" || !studentId) {
             throw new Error("Id params is missing!");
         }
         if (!newClassId || newClassId === "") {
             throw new Error("classID is missing!");
-        }
-        if (checkClassId === null) {
-            errorCode = 404;
-            throw new Error("class ID not found!");
         }
 
         await StudentService.changeStudentClass(checkStudentId, newClassId);

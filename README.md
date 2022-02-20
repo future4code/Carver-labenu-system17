@@ -22,6 +22,8 @@ As funcionalidades básicas são:
 
 ### 📋 Documentação via Postman:
 
+    https://documenter.getpostman.com/view/7556441/UVkjwxzY
+
 ### 🛠️ Tecnologias utilizadas:
 
 → Typescript;

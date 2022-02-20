@@ -1,20 +1,15 @@
 import ConnectionBase from "../connection/ConnectionBase";
-import { ModuleValues } from "../constants/module";
 import { TableName } from "../constants/tables";
 import Class from "../models/Class";
 
 export default class ClassService extends ConnectionBase {
     public static async createClass(class_labenu: Class): Promise<void | {}> {
         try {
-            await ConnectionBase.connection.raw(
-                `INSERT INTO ${
-                    TableName.labesystem_class
-                } (id, name, module) VALUES(
-                    ${class_labenu.getId()},
-                    ${class_labenu.getName()},
-                    ${class_labenu.getModule()}
-                )`
-            );
+            await ConnectionBase.connection(TableName.labesystem_class).insert({
+                id: class_labenu.getId(),
+                name: class_labenu.getName(),
+                module: class_labenu.getModule(),
+            });
         } catch (error: any) {
             return { error: error.message };
         }
@@ -35,13 +30,14 @@ export default class ClassService extends ConnectionBase {
     }
 
     public static async updateClassModule(
-        module: ModuleValues,
+        module: number,
         class_id: string
     ): Promise<void | {}> {
         try {
-            await ConnectionBase.connection.raw(
-                `UPDATE ${TableName.labesystem_class} SET module=${module} WHERE id=${class_id}`
-            );
+            console.log(module, class_id);
+            await ConnectionBase.connection(TableName.labesystem_class)
+                .where("id", "=", class_id)
+                .update({ module });
         } catch (error: any) {
             return { error: error.message };
         }
@@ -51,17 +47,21 @@ export default class ClassService extends ConnectionBase {
         try {
             const result = await ConnectionBase.connection(
                 TableName.labesystem_class
-            ).select("*");
+            ).orderBy("module");
             return result;
         } catch (error: any) {
             return null;
         }
     }
-    public static async checkClassId(id: string): Promise<string> {
-        const checkClassId = await ConnectionBase.connection()
-            .select("id")
-            .from(TableName.labesystem_class)
-            .where("id", id);
-        return checkClassId[0].id;
+
+    public static async checkClassId(id: string): Promise<string | null> {
+        try {
+            const checkClassId = await ConnectionBase.connection(
+                TableName.labesystem_class
+            ).where("id", id);
+            return checkClassId[0].id;
+        } catch (error: any) {
+            return null;
+        }
     }
 }
