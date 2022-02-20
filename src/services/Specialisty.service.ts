@@ -1,5 +1,6 @@
 import ConnectionBase from "../connection/ConnectionBase";
 import { TableName } from "../constants/tables";
+import ProfessorSpeciality from "../models/ProfessorSpeciality";
 import Speciality from "../models/Speciality";
 
 export default class SpecialityService extends ConnectionBase {
@@ -30,6 +31,24 @@ export default class SpecialityService extends ConnectionBase {
             JOIN labesystem_speciality WHERE labesystem_speciality.name = "${nameSpeciality}";
             `);
             return result[0];
+        } catch (error: any) {
+            return { error: error.message };
+        }
+    }
+
+    public static async createProfessorRelationSpeciality(
+        professor_speciality: ProfessorSpeciality
+    ): Promise<void | {}> {
+        try {
+            await SpecialityService.connection.raw(
+                `INSERT INTO ${
+                    TableName.labesystem_student_hobby
+                } (id, professor_id, speciality_id) VALUES(
+                    ${professor_speciality.getId()},
+                    ${professor_speciality.getProfessorId()},
+                    ${professor_speciality.getSpecialityId()}
+                )`
+            );
         } catch (error: any) {
             return { error: error.message };
         }

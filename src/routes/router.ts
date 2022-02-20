@@ -19,7 +19,10 @@ import {
     getStudentsByName,
     postStudent,
 } from "../controllers/student.controller";
-import { getStudentsAndProfessorsByClass } from "../controllers/student.professor.controller";
+import {
+    getStudentsAndProfessorsByClass,
+    postStudentOrProfessorParticularity,
+} from "../controllers/student.professor.controller";
 
 const router = express.Router();
 
@@ -38,8 +41,9 @@ router.post("/professors", postProfessor);
 router.get("/professors", getProfessors);
 router.put("/professors/:id", changeProfessorClass);
 
-//get Students and Professors by class id
+//Student/Professor
 router.get("/classPersons", getStudentsAndProfessorsByClass);
+router.post("/person/particularity", postStudentOrProfessorParticularity);
 
 //Speciality
 router.get("/specialities", getProfessorBySpeciality);
