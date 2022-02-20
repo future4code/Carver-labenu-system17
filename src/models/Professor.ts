@@ -8,7 +8,7 @@ export default class Professor extends Person {
         id: string,
         name: string,
         email: string,
-        birth_date: Date,
+        birth_date: string,
         class_id: string
     ) {
         super(id, name, email, birth_date, class_id);
@@ -22,7 +22,7 @@ export default class Professor extends Person {
     public getEmail(): string{
         return this.email
     }
-    public getBirthDate(): Date{
+    public getBirthDate(): string{
         return this.birth_date
     }
     public getClassId(): string{

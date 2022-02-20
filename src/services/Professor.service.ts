@@ -46,7 +46,7 @@ export default class ProfessorService extends ConnectionBase {
     public static async checkProfessorId(id: string): Promise<string> {
         const checkProfessorId = await ConnectionBase.connection()
             .select("id")
-            .from("labesystem_professor")
+            .from(TableName.labesystem_professor)
             .where("id", id)
         return checkProfessorId[0].id
     }

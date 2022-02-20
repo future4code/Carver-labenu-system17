@@ -2,6 +2,7 @@ import Class from "../models/Class";
 import { v4 as uuidv4 } from "uuid";
 import { Request, Response } from "express";
 import ClassService from "../services/Class.service";
+import { ModuleValues } from "../constants/module";
 
 export const postClass = async (
     request: Request,
@@ -16,10 +17,10 @@ export const postClass = async (
 
         const id: string = uuidv4();
 
-        const class_labenu: Class = new Class(id, name, 0);
+        const class_labenu: Class = new Class(id, name, ModuleValues.module_00);
         await ClassService.createClass(class_labenu);
-
-        response.status(200).json({ message: "Class created sucessfully!" });
+       
+        response.status(201).json({ message: "Class created sucessfully!" });
     } catch (error: any) {
         response.status(erroCode).json({ error: error.message });
     }

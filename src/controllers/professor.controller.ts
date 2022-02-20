@@ -17,7 +17,7 @@ export const postProfessor = async (
             throw new Error("please fill the fields!");
         }
 
-        const checkClassId = await ProfessorService.checkProfessorId(classId)
+        const checkClassId = await ClassService.checkClassId(classId)
 
         const professor: Professor = new Professor(
             id,
