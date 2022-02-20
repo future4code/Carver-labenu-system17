@@ -1,6 +1,6 @@
-import { v4 as uuidv4 } from "uuid";
+import CommonEntity from "../interfaces/CommonEntinty";
 
-export default abstract class Person implements IEntity {
+export default abstract class Person extends CommonEntity {
     protected id: string;
     protected name: string;
     protected email: string;
@@ -14,14 +14,12 @@ export default abstract class Person implements IEntity {
         birth_date: string,
         class_id: string
     ) {
+        super();
         this.id = id;
         this.name = name;
         this.email = email;
         this.birth_date = birth_date;
         this.class_id = class_id;
-    }
-    generateId(): string {
-        throw new Error("Method not implemented.");
     }
 
     public getId(): string {
@@ -57,9 +55,5 @@ export default abstract class Person implements IEntity {
             return false; // NaN value, Invalid date
         }
         return test_date.toISOString().slice(0, 10) === date;
-    }
-
-    public static generateId(): string {
-        return uuidv4();
     }
 }

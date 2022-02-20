@@ -1,12 +1,13 @@
-import { v4 as uuidv4 } from "uuid";
 import { ModuleValues } from "../constants/module";
+import CommonEntity from "../interfaces/CommonEntinty";
 
-export default class Class implements IEntity {
+export default class Class extends CommonEntity {
     private id: string;
     private name: string;
     private module: ModuleValues;
 
     constructor(id: string, name: string, module: number) {
+        super();
         this.id = id;
         this.name = name;
         this.module = module;
@@ -23,9 +24,5 @@ export default class Class implements IEntity {
     }
     public getModule(): ModuleValues {
         return this.module;
-    }
-
-    public static generateId(): string {
-        return uuidv4();
     }
 }
