@@ -1,5 +1,4 @@
 import Student from "../models/Student";
-import { v4 as uuidv4 } from "uuid";
 import { Request, Response } from "express";
 import StudentService from "../services/Student.service";
 import Person from "../models/Person";
@@ -8,7 +7,7 @@ export const postStudent = async (
     request: Request,
     response: Response
 ): Promise<void> => {
-    let erroCode = 400;
+    let errorCode = 400;
     try {
         const { name, email, birth_date, class_id } = request.body;
 
@@ -22,6 +21,7 @@ export const postStudent = async (
             throw new Error("birth_date field is missing!");
         }
         if (!Person.isValidDate(birth_date)) {
+            errorCode = 422;
             throw new Error(
                 "birth_date have a invalid value date for: YYYY-MM-DD!"
             );
@@ -30,7 +30,7 @@ export const postStudent = async (
             throw new Error("class_id field is missing!");
         }
 
-        const id: string = uuidv4();
+        const id: string = Person.generateId();
 
         const student: Student = new Student(
             id,
@@ -43,7 +43,7 @@ export const postStudent = async (
 
         response.status(201).json({ message: "Student created sucessfully!" });
     } catch (error: any) {
-        response.status(erroCode).json({ error: error.message });
+        response.status(errorCode).json({ error: error.message });
     }
 };
 

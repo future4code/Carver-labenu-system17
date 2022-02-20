@@ -1,9 +1,6 @@
 import Person from "./Person";
 
 export default class Professor extends Person {
-    static getProfessors() {
-        throw new Error("Method not implemented.");
-    }
     constructor(
         id: string,
         name: string,
@@ -13,19 +10,19 @@ export default class Professor extends Person {
     ) {
         super(id, name, email, birth_date, class_id);
     }
-    public getId(): string{
-        return this.id
+    public getId(): string {
+        return this.id;
     }
-    public getName(): string{
-        return this.name
+    public getName(): string {
+        return this.name;
     }
-    public getEmail(): string{
-        return this.email
+    public getEmail(): string {
+        return this.email;
     }
     public getBirthDate(): string{
         return this.birth_date
     }
-    public getClassId(): string{
-        return this.class_id
+    public getClassId(): string {
+        return this.class_id;
     }
 }

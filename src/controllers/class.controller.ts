@@ -15,11 +15,11 @@ export const postClass = async (
             throw new Error("name field is missing!");
         }
 
-        const id: string = uuidv4();
+        const id: string = Class.generateId();
 
         const class_labenu: Class = new Class(id, name, ModuleValues.module_00);
         await ClassService.createClass(class_labenu);
-       
+
         response.status(201).json({ message: "Class created sucessfully!" });
     } catch (error: any) {
         response.status(erroCode).json({ error: error.message });
