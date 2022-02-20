@@ -4,12 +4,16 @@ import {
     postClass,
     putClassModule,
 } from "../controllers/class.controller";
+import { postHobby } from "../controllers/hobby.controller";
 import {
     changeProfessorClass,
     getProfessors,
     postProfessor,
 } from "../controllers/professor.controller";
-import { getProfessorBySpeciality } from "../controllers/speciality.controller";
+import {
+    getProfessorBySpeciality,
+    postSpeciality,
+} from "../controllers/speciality.controller";
 import {
     changeStudentClass,
     getStudentsByName,
@@ -38,6 +42,10 @@ router.put("/professors/:id", changeProfessorClass);
 router.get("/classPersons", getStudentsAndProfessorsByClass);
 
 //Speciality
-router.get("/speciality", getProfessorBySpeciality);
+router.get("/specialities", getProfessorBySpeciality);
+router.post("/specialities", postSpeciality);
+
+//Hobby
+router.post("/hobbies", postHobby);
 
 export default router;
