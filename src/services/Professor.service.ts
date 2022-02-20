@@ -42,7 +42,7 @@ export default class ProfessorService extends ConnectionBase {
 
             result.map(async (professor: any): Promise<void> => {
                 if (checkProfessorId === professor.id) {
-                    await ProfessorService.connection.raw(`
+                    await ConnectionBase.connection.raw(`
                     UPDATE ${TableName.labesystem_professor} SET class_id = "${newClassId}" WHERE id = "${checkProfessorId}";
                     `);
                 }
@@ -55,8 +55,7 @@ export default class ProfessorService extends ConnectionBase {
         const checkProfessorId = await ConnectionBase.connection()
             .select("id")
             .from(TableName.labesystem_professor)
-            .where("id", id)
-        return checkProfessorId[0].id
-
+            .where("id", id);
+        return checkProfessorId[0].id;
     }
 }

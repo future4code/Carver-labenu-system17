@@ -34,4 +34,32 @@ export default class StudentService extends ConnectionBase {
             return [];
         }
     }
+
+    public static async changeStudentClass(
+        checkStudentId: string,
+        newClassId: string
+    ): Promise<void | {}> {
+        try {
+            const result = await ConnectionBase.connection(
+                TableName.labesystem_student
+            ).select("*");
+
+            result.map(async (student: any): Promise<void> => {
+                if (checkStudentId === student.id) {
+                    await ConnectionBase.connection.raw(`
+                    UPDATE ${TableName.labesystem_student} SET class_id = "${newClassId}" WHERE id = "${checkStudentId}";
+                    `);
+                }
+            });
+        } catch (error: any) {
+            return { error: error.message };
+        }
+    }
+    public static async checkStudentId(id: string): Promise<string> {
+        const checkStudentId = await ConnectionBase.connection()
+            .select("id")
+            .from(TableName.labesystem_student)
+            .where("id", id);
+        return checkStudentId[0].id;
+    }
 }
