@@ -11,6 +11,7 @@ import {
 } from "../controllers/professor.controller";
 import { getProfessorBySpeciality } from "../controllers/speciality.controller";
 import {
+    changeStudentClass,
     getStudentsByName,
     postStudent,
 } from "../controllers/student.controller";
@@ -26,15 +27,17 @@ router.put("/classes/module", putClassModule);
 //Student
 router.post("/students", postStudent);
 router.get("/students/:name", getStudentsByName);
+router.put("/students/:id", changeStudentClass);
 
 //Professor
-router.post("/professor", postProfessor);
+router.post("/professors", postProfessor);
 router.get("/professors", getProfessors);
 router.put("/professors/:id", changeProfessorClass);
 
 //get Students and Professors by class id
-router.get("/classPersons", getStudentsAndProfessorsByClass)
+router.get("/classPersons", getStudentsAndProfessorsByClass);
 
 //Speciality
-router.get("/speciality", getProfessorBySpeciality)
+router.get("/speciality", getProfessorBySpeciality);
+
 export default router;

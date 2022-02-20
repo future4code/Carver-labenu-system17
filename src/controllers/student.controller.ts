@@ -2,6 +2,7 @@ import Student from "../models/Student";
 import { Request, Response } from "express";
 import StudentService from "../services/Student.service";
 import Person from "../models/Person";
+import ClassService from "../services/Class.service";
 
 export const postStudent = async (
     request: Request,
@@ -69,5 +70,38 @@ export const getStudentsByName = async (
         response.status(200).json(studentsByName);
     } catch (error: any) {
         response.status(erroCode).json({ error: error.message });
+    }
+};
+
+export const changeStudentClass = async (
+    req: Request,
+    res: Response
+): Promise<any> => {
+    let errorCode = 500;
+    try {
+        const studentId = req.params.id as string;
+        const newClassId = req.body.newClassId as string;
+
+        const checkStudentId = await StudentService.checkStudentId(studentId);
+        const checkClassId = await ClassService.checkClassId(newClassId);
+
+        if (studentId === "" || !studentId) {
+            throw new Error("Id params is missing!");
+        }
+        if (!newClassId || newClassId === "") {
+            throw new Error("classID is missing!");
+        }
+        if (checkClassId === null) {
+            errorCode = 404;
+            throw new Error("class ID not found!");
+        }
+
+        await StudentService.changeStudentClass(checkStudentId, newClassId);
+
+        res.status(200).json({
+            message: "Student class has been changed sucessfully!",
+        });
+    } catch (error: any) {
+        res.status(errorCode).send({ error: error.message });
     }
 };
