@@ -19,8 +19,8 @@ export default class Professor extends Person {
     public getEmail(): string {
         return this.email;
     }
-    public getBirthDate(): string {
-        return this.birth_date;
+    public getBirthDate(): string{
+        return this.birth_date
     }
     public getClassId(): string {
         return this.class_id;
