@@ -1,5 +1,5 @@
 import Person from "./Person";
-// Fazer classe de estudantes
+
 export default class Student extends Person {
     constructor(
         id: string,
@@ -10,6 +10,4 @@ export default class Student extends Person {
     ) {
         super(id, name, email, birth_date, class_id);
     }
-    // Fazer getters e setters
-    //Outros métodos da classe turma
 }
