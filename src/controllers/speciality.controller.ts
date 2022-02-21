@@ -32,7 +32,8 @@ export const getProfessorBySpeciality = async (
 ): Promise<any | {}> => {
     let errorCode = 500;
     try {
-        const speciality = req.query.q as string;
+        const { speciality } = req.params;
+
         if (!speciality) {
             throw new Error("speciality name is missing!");
         }

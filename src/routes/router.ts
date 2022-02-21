@@ -42,13 +42,13 @@ router.put("/students/class/:id", changeStudentClass);
 router.post("/professors", postProfessor);
 router.get("/professors", getProfessors);
 router.put("/professors/class/:id", changeProfessorClass);
+router.get("/professors/specialities/:speciality", getProfessorBySpeciality);
 
 //Student/Professor
 router.get("/person/class", getStudentsAndProfessorsByClass);
 router.post("/person/particularity", postStudentOrProfessorParticularity);
 
 //Speciality
-router.get("/specialities", getProfessorBySpeciality);
 router.post("/specialities", postSpeciality);
 
 //Hobby

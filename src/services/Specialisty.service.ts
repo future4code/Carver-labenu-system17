@@ -8,14 +8,12 @@ export default class SpecialityService extends ConnectionBase {
         speciality: Speciality
     ): Promise<void | {}> {
         try {
-            await SpecialityService.connection.raw(
-                `INSERT INTO ${
-                    TableName.labesystem_speciality
-                } (id, name) VALUES(
-                    ${speciality.getId()},
-                    ${speciality.getName()},
-                )`
-            );
+            await SpecialityService.connection(
+                TableName.labesystem_speciality
+            ).insert({
+                id: speciality.getId(),
+                name: speciality.getName(),
+            });
         } catch (error: any) {
             return { error: error.message };
         }
